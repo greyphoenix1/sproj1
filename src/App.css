@@ -1,5 +1,6 @@
-.App {
+body {
   text-align: center;
+  background-color: hsl(0, 0%, 0%);
 }
 
 .App-logo {
@@ -32,7 +33,110 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
+}
+
+.topbar {
+  width: 100vw;
+  height: 15vh;
+  background-image: linear-gradient(to right, rgb(116, 238, 21), rgb(255, 231, 0), rgb(240, 0, 255));
+}
+
+.landing {
+  width: 35vw;
+  height: 65vh;
+  background-color: hsl(0, 0%, 89%);
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 3rem;
+}
+
+.register-box {
+  width: 25vw;
+  position: absolute;
+  background-color: hsl(240, 100%, 63%);
+  left: 50%;
+  top: 35%;
+  transform: translate(-50%, -50%);
+}
+
+.register-box:hover {
+  background-color: hsl(240, 100%, 53%);
+}
+
+.login-box {
+  background-color: hsl(240, 100%, 63%);
+  position: absolute;
+  width: 25vw;
+  left: 50%;
+  top: 65%;
+  transform: translate(-50%, -50%);
+}
+
+h3 {
+  color: white;
+  font-family: monospace;
+}
+
+.login-box:hover {
+  background-color: hsl(240, 100%, 53%);
+}
+
+.register-container {
+  width: 35vw;
+  height: 65vh;
+  background-color: hsl(0, 0%, 89%);
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 3rem;
+}
+
+.name {
+  width: 16vw;
+  position: absolute;
+  height: 4vh;
+  left: 50%;
+  top: 25%;
+  transform: translate(-50%, -50%);
+}
+
+.password {
+  width: 16vw;
+  position: absolute;
+  height: 4vh;
+  left: 50%;
+  top: 45%;
+  transform: translate(-50%, -50%);
+}
+
+.back {
+  width: 5vw;
+  border-top-left-radius: 3rem;
+  background-color: red;
+}
+
+.back:hover {
+  background-color: hsl(0, 100%, 40%);
+}
+
+.reg-submit {
+  background-color: hsl(240, 100%, 63%);
+  position: absolute;
+  width: 12vw;
+  height: 5vh;
+  left: 50%;
+  top: 65%;
+  transform: translate(-50%, -50%);
+  padding-bottom: 10px;
+
+}
+.reg-submit:hover{
+  background-color: hsl(240, 100%, 53%);
 }
