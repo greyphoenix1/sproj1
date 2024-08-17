@@ -1,11 +1,11 @@
 
 
-const register = (req, res) => {
+const register = async (req, res) => {
     res.send("yes register");
 }
 
-const login = (req, res) => {
+const login = async (req, res) => {
     res.send("yes login");
 }
 
-module.export = {register, login};
+module.exports = {register, login};
