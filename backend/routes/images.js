@@ -3,31 +3,26 @@ const router = express.Router();
 const userSchema = require('../model/users');
 const upload = require('../controller/upload-and-storage');
 const { StatusCodes } = require('http-status-codes');
+const authMiddleware = require('../middleware/auth');
 
 //Upload route
-router.post('/upload', upload.single('image'), async (req, res) => {
-    try {
-        //find user
-        const user = await userSchema.findById(req.user._id);
-
-        if (!user) {
-            return res.status(StatusCodes.NOT_FOUND).json({ msg: 'user not found' });
+router.post('/upload', authMiddleware, (req, res) => {
+    upload(req, res, async (err) => {
+        if (err) {
+            return res.status(400).json({ msg: err });
         }
-        //store by file path
+        const user = await userSchema.findById(req.user.userId);
         user.Images = req.file.path;
         await user.save();
-
-        res.status(StatusCodes.OK).json({ message: "Uploaded", path: user.Images });
-    } catch (error) {
-        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: "error uploading", error });
-    }
+        res.status(200).json({ msg: 'Image uploaded successfully', path: req.file.path });
+    });
 });
 
 //accessing the image
 router.get('/userProfile', async (req, res) => {
     try {
         //find user
-        const user = await userSchema.findById(req.user._id);
+        const user = await userSchema.findOne({ name: req.user.name });
         if (!user) {
             return res.status(StatusCodes.NOT_FOUND).json({ msg: 'user not found' });
         }
@@ -35,7 +30,7 @@ router.get('/userProfile', async (req, res) => {
         ///send images
         res.status(StatusCodes.OK).json({ Images: user.Images });
     } catch (error) {
-        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ msg: 'Internal Server Error'})
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error });
     }
 })
 
