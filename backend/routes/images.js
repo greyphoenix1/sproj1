@@ -4,6 +4,7 @@ const userSchema = require('../model/users');
 const upload = require('../controller/upload-and-storage');
 const { StatusCodes } = require('http-status-codes');
 const authMiddleware = require('../middleware/auth');
+const path = require('path');
 
 //Upload route
 router.post('/upload', authMiddleware, (req, res) => {
@@ -32,6 +33,14 @@ router.get('/userProfile', async (req, res) => {
     } catch (error) {
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error });
     }
+})
+
+router.get('/:filename', async (req, res) => {
+    const filename = req.params.filename;
+    const imagePath = path.join(__dirname, '..','uploads', filename);
+    console.log("Image path:", imagePath);
+    
+    res.sendFile(imagePath);
 })
 
 module.exports = router;
