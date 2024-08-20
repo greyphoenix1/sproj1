@@ -10,6 +10,8 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import TopBar from './TopBar';
 import RegisterPage from './pages/registerpage';
+import LoginPage from './pages/loginpage';
+import HomePage from './pages/homepage';
 
 const router = createBrowserRouter([
   {
@@ -20,6 +22,14 @@ const router = createBrowserRouter([
     path:"/register",
     element:<RegisterPage/>
   },
+  {
+    path:"/login",
+    element:<LoginPage/>
+  },
+  {
+    path:"/homepage",
+    element:<HomePage/>
+  }
 ])
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
