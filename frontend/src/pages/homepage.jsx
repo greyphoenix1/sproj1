@@ -1,6 +1,20 @@
+import axios from "axios";
 import TopBar from "../TopBar";
 
 function HomePage() {
+
+    const token = localStorage.getItem('token');
+
+    axios.get('http://localhost:3000/api/v1/auth/login', {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    })
+    .then(response => {
+        console.log(response.data);       
+    }).catch(error => {
+        console.log('Error:', error);
+    })
 
     return (<>
 
