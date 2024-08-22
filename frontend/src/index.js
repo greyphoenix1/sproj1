@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { 
+import {
   createBrowserRouter,
   RouterProvider,
   Route,
@@ -12,23 +12,28 @@ import TopBar from './TopBar';
 import RegisterPage from './pages/registerpage';
 import LoginPage from './pages/loginpage';
 import HomePage from './pages/homepage';
+import PrivateRoute from './PrivateRoute';
 
 const router = createBrowserRouter([
   {
-    path:"/",
-    element: <App/>
+    path: "/",
+    element: <App />
   },
   {
-    path:"/register",
-    element:<RegisterPage/>
+    path: "/register",
+    element: <RegisterPage />
   },
   {
-    path:"/login",
-    element:<LoginPage/>
+    path: "/login",
+    element: <LoginPage />
   },
   {
-    path:"/homepage",
-    element:<HomePage/>
+    path: "/homepage",
+    element: (
+      <PrivateRoute>
+        <HomePage />
+      </PrivateRoute>
+    )
   }
 ])
 
