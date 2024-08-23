@@ -1,7 +1,14 @@
 import axios from "axios";
 import TopBar from "../TopBar";
+import { useNavigate } from "react-router-dom";
 
 function HomePage() {
+
+    const navigate = useNavigate();
+
+    const handleHomeConnect = () => {
+        navigate('/imagetransfer');
+    }
 
     const token = localStorage.getItem('token');
 
@@ -26,7 +33,7 @@ function HomePage() {
         <div className="view-button">
             <h3>View images</h3>
         </div>
-        <div className="conn-button">
+        <div className="conn-button" onClick={handleHomeConnect}>
             <h3>Connect and Receive</h3>
         </div>
     </div >

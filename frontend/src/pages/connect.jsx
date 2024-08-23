@@ -10,22 +10,24 @@ function ConnectionPage() {
             Authorization: `Bearer ${token}`
         }
     })
-    .then(response => {
-        console.log(response.data);       
-    }).catch(error => {
-        console.log('Error:', error);
-    })
+        .then(response => {
+            console.log(response.data);
+        }).catch(error => {
+            console.log('Error:', error);
+        })
 
     return (<>
 
+
         <TopBar></TopBar>
         <div className="connection-container">
+
             <div className="upload-button">
                 <h3>Upload images</h3>
+            </div>
         </div>
-        </div>
-</>
-)
+    </>
+    )
 }
 
 export default ConnectionPage;

@@ -203,3 +203,28 @@ h3 {
   background-color: hsl(240, 100%, 53%);
   cursor: pointer;
 }
+
+.background{
+  width: 35vw;
+  height: 65vh;
+  background-color: hsl(0, 0%, 89%);
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 3rem;
+}
+
+.upload{
+  position: absolute;
+  top:40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.send{
+  position: absolute;
+  top:65%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
