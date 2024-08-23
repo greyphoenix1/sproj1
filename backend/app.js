@@ -5,6 +5,11 @@ const app = express();
 const connectDB = require('./db/connectDB');
 const authMiddleware = require('./middleware/auth');
 const path = require('path');
+const http = require('http');
+const { Server } = require('socket.io');
+
+const server = http.createServer(app);
+const io = new Server(server);
 
 //routes
 const authRouter = require('./routes/auth');
@@ -22,7 +27,22 @@ app.use(express.static(path.join(__dirname, '..', 'frontend', 'build')));
 
 
 app.use("/api/v1/auth", authRouter);
-app.use('/api/v1/images',authMiddleware, imagesRouter);
+app.use('/api/v1/images', authMiddleware, imagesRouter);
+
+//socket
+io.on('connection', (socket) => {
+    console.log('a user has connected');
+
+    socket.on('sendImage', (data) => {
+        socket.broadcast.emit('receiveImage', data);
+    });
+
+    socket.on('disconnect', () => {
+        console.log('a user has disconnected');
+    });
+});
+
+
 
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'frontend', 'build', 'index.html'));
@@ -32,6 +52,6 @@ app.get('/', (req, res) => {
     res.send('<a>test</a>');
 })
 
-app.listen(3000, (req, res) =>{
+server.listen(3000, (req, res) => {
     console.log("up n running at 3000");
 })

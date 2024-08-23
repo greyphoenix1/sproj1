@@ -13,6 +13,7 @@ import RegisterPage from './pages/registerpage';
 import LoginPage from './pages/loginpage';
 import HomePage from './pages/homepage';
 import PrivateRoute from './PrivateRoute';
+import ImageTranfer from './ImageTransfer';
 
 const router = createBrowserRouter([
   {
@@ -32,6 +33,14 @@ const router = createBrowserRouter([
     element: (
       <PrivateRoute>
         <HomePage />
+      </PrivateRoute>
+    )
+  },
+  {
+    path: "/imagetransfer",
+    element: (
+      <PrivateRoute>
+        <ImageTranfer />
       </PrivateRoute>
     )
   }
