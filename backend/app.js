@@ -33,6 +33,17 @@ app.use('/api/v1/images', authMiddleware, imagesRouter);
 io.on('connection', (socket) => {
     console.log('a user has connected');
 
+    socket.emit('status', 'Looking for devices...');
+
+    setTimeout(() => { //Device discovery
+        socket.emit('devicesFound', ['Device 1', 'Device 2']);
+    }, 2000);
+
+    socket.on('connectToDevice', (device) => {
+        console.log(`Connecting to ${device}`);
+        socket.emit('status', `Conected to ${device}`);
+    });
+
     socket.on('sendImage', (data) => {
         socket.broadcast.emit('receiveImage', data);
     });
