@@ -43,4 +43,13 @@ router.get('/:filename', async (req, res) => {
     res.sendFile(imagePath);
 })
 
+router.get('/:userId/images', async (req, res) => {
+    try {
+        const images = await Image.find({ userId: req.params.userId});
+        res.json(images);
+    } catch (error) {
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ msg: error.message });
+    }
+})
+
 module.exports = router;

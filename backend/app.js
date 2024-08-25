@@ -33,6 +33,15 @@ app.use('/api/v1/images', authMiddleware, imagesRouter);
 io.on('connection', (socket) => {
     console.log('a user has connected');
 
+    socket.on('requestImages', async (userId) => {
+        try {
+            const images = await Image.find({ userId });
+            socket.emit('receiveImages', images);
+        } catch (error) {
+            socket.emit('error', 'Failed to retrieve images');
+        }
+    })
+
     socket.emit('status', 'Looking for devices...');
 
     setTimeout(() => { //Device discovery

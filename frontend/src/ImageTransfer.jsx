@@ -9,6 +9,7 @@ function ImageTranfer() {
     const fileInputRef = useRef();
     const [status, setStatus] = useState('Connecting...');
     const [devices, setDevices] = useState([]);
+    const [images, setImages] = useState([]);
 
     useEffect(() => {
         socket.on('status', (msg) => {
