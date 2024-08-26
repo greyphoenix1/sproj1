@@ -7,6 +7,7 @@ const authMiddleware = require('./middleware/auth');
 const path = require('path');
 const http = require('http');
 const { Server } = require('socket.io');
+const userSchema = require('./model/users');
 
 const server = http.createServer(app);
 const io = new Server(server);
@@ -35,12 +36,16 @@ io.on('connection', (socket) => {
 
     socket.on('requestImages', async (userId) => {
         try {
-            const images = await Image.find({ userId });
-            socket.emit('receiveImages', images);
-        } catch (error) {
+            const user = await userSchema.findById({ userId });
+            if (!user) {
+                socket.emit('error', 'User not found');
+                return
+            }
+            socket.emit('receiveImages', user.images);
+        } catch (err) {
             socket.emit('error', 'Failed to retrieve images');
         }
-    })
+    });
 
     socket.emit('status', 'Looking for devices...');
 

@@ -20,7 +20,7 @@ const login = async (req, res) => {
         return res.status(StatusCodes.UNAUTHORIZED).json({ msg: 'wrong pass'});
     }
     const token = user.createJWT();
-    res.status(StatusCodes.OK).json({ msg: `welcome ${name}. Your token is: ${token}`});
+    res.status(StatusCodes.OK).json({ token, msg: `welcome ${name}.`});
 }
 
 module.exports = {register, login};

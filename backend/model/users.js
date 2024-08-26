@@ -14,7 +14,7 @@ const userSchama = new mongoose.Schema({
         minlength: 3,
     },
     Images: {
-        type: String, 
+        type: [String], 
     }
 });
 
@@ -31,8 +31,7 @@ userSchama.methods.createJWT = function () {
 
 //compare hashed passwords
 userSchama.methods.comparePass = async function (inputPassword) {
-    console.log("Input Password:", inputPassword);
-    console.log("Stored Password:", this.password);
+
 
     const isMatch = await bcrypt.compare(inputPassword, this.password);
     console.log("Password Match Result:", isMatch);

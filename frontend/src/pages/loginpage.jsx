@@ -18,7 +18,9 @@ function LoginPage() {
 
             console.log("User logged in:", response.data);
 
-            localStorage.setItem('token', response.data.token);
+            const token = response.data.token;
+
+            localStorage.setItem('token', token);
 
             navigate('/homepage');
 

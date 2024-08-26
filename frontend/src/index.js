@@ -14,6 +14,8 @@ import LoginPage from './pages/loginpage';
 import HomePage from './pages/homepage';
 import PrivateRoute from './PrivateRoute';
 import ImageTranfer from './ImageTransfer';
+import UploadPage from './pages/upload';
+import ViewImages from './pages/view';
 
 const router = createBrowserRouter([
   {
@@ -41,6 +43,22 @@ const router = createBrowserRouter([
     element: (
       <PrivateRoute>
         <ImageTranfer />
+      </PrivateRoute>
+    )
+  },
+  {
+    path:'/uploadimage',
+    element: (
+      <PrivateRoute>
+        <UploadPage />
+      </PrivateRoute>
+    )
+  },
+  {
+    path:'/viewstoredimages',
+    element: (
+      <PrivateRoute>
+        <ViewImages />
       </PrivateRoute>
     )
   }
