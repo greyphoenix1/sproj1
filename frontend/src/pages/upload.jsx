@@ -1,18 +1,35 @@
 import axios from 'axios';
 import TopBar from '../TopBar';
+import { useState } from 'react';
 
 function UploadPage () {
+    const [status, setStatus] = useState('');
+    const [file, setFile] = useState(null);
 
-    const handleUpload = async (event) => {
-        const file = event.target.files[0];
+    const handleFileChange = (event) => {
+        setFile(event.target.files[0]);
+    }
+
+    const handleUpload = async () => {
+        if (!file) {
+            setStatus('No file selected');
+            return
+        }
         const formData = new FormData();
-        formData.append('Image', file);
+        formData.append('Images', file);
 
-        await axios.post('/api/v1/images/upload', formData, {
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem('token')}`,
-            },
-        });
+        try {
+            await axios.post('/api/v1/images/upload', formData, {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                    'Content-Type':  'multipart/form-data'
+                },
+            });
+            setStatus('Uploaded');
+        } catch (error) {
+            setStatus('Upload failed');
+        }
+
     };
 
 
@@ -24,8 +41,10 @@ function UploadPage () {
 
     <TopBar></TopBar>
 
-    <div className='container'>
-        <input type='file' onChange={handleUpload} />
+    <div className='background'>
+        <input type='file' onChange={handleFileChange}/>
+        <button onClick={handleUpload}>Upload Image</button>
+        <h3>{status}</h3>
     </div>
 
     </>)
