@@ -8,7 +8,15 @@ function HomePage() {
 
     const handleHomeConnect = () => {
         navigate('/imagetransfer');
-    }
+    };
+
+    const handleUploadPage = () => {
+        navigate('/uploadimage');
+    };
+
+    const handleViewPage = () => {
+        navigate('/viewstoredimages');
+    };
 
     const token = localStorage.getItem('token');
 
@@ -27,10 +35,10 @@ function HomePage() {
 
         <TopBar></TopBar>
         <div className="homepage-container">
-            <div className="upload-button">
+            <div className="upload-button" onClick={handleUploadPage}>
                 <h3>Upload images</h3>
         </div>
-        <div className="view-button">
+        <div className="view-button" onClick={handleViewPage}>
             <h3>View images</h3>
         </div>
         <div className="conn-button" onClick={handleHomeConnect}>

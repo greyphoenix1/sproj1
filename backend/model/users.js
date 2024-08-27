@@ -14,20 +14,22 @@ const userSchama = new mongoose.Schema({
         minlength: 3,
     },
     Images: {
-        type: [String], 
+        type: [String],
     }
 });
 
 //hash password
 userSchama.pre('save', async function () {
-    const salt = await bcrypt.genSalt(10);
-    this.password = await bcrypt.hash(this.password, salt);
-})
+    if (this.isModified('password')) {
+        const salt = await bcrypt.genSalt(10);
+        this.password = await bcrypt.hash(this.password, salt);
+    };
+});
 
 //create token
 userSchama.methods.createJWT = function () {
     return jwt.sign({ userId: this._id, name: this.name }, process.env.jwt_top_secret, { expiresIn: '30d' });
-}
+};
 
 //compare hashed passwords
 userSchama.methods.comparePass = async function (inputPassword) {
@@ -37,6 +39,6 @@ userSchama.methods.comparePass = async function (inputPassword) {
     console.log("Password Match Result:", isMatch);
 
     return isMatch;
-}
+};
 
 module.exports = mongoose.model('User', userSchama);
