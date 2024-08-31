@@ -20,7 +20,7 @@ function HomePage() {
 
     const token = localStorage.getItem('token');
 
-    axios.get('http://localhost:3000/api/v1/auth/login', {
+    axios.get('/api/v1/auth/login', {
         headers: {
             Authorization: `Bearer ${token}`
         }

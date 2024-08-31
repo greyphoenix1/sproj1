@@ -22,9 +22,12 @@ function ImageTranfer() {
         })
 
         socket.on('receiveImage', (data) => {
-            const img = document.createElement('img');
-            img.src = URL.createObjectURL(new Blob([data]));
-            document.body.appendChild(img);
+            console.log('received image data', data);
+            
+            //const img = document.createElement('img');
+            const imgURL = URL.createObjectURL(new Blob([data]));
+            setImages((prevImages) => [...prevImages, imgURL]);
+            //document.body.appendChild(img);
         });
     }, []);
 
@@ -34,9 +37,13 @@ function ImageTranfer() {
             const reader = new FileReader();
             reader.onload = (e) => {
                 const buffer = e.target.result;
+                console.log('Image buffer',buffer);
                 socket.emit('sendImage', buffer);
             };
             reader.readAsArrayBuffer(file);
+        } else {
+            console.log('no files selected');
+            
         }
     }
 
@@ -74,6 +81,12 @@ function ImageTranfer() {
 
                 <input className='upload' type="file" ref={fileInputRef} />
                 <button className='send' onClick={handleSendImage}>Send Image</button>
+
+                <div className='image-display'>
+                    {images.map((imgSrc, index) => (
+                        <img key={index} src={imgSrc} alt={`Received Image ${index}`} />
+                    ))}
+                </div>
             </div>
         </>
     );

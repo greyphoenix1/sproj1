@@ -40,13 +40,13 @@ function ViewImages() {
             <div className="imageList">
                 {images.map((image, index) => {
                     const filename = image.replace(/^uploads[\\/]/, '');
-                    const imageURL = `http://localhost:3000/uploads/${filename}`;
+                    const imageURL = `${window.location.origin}/uploads/${filename}`;
                     console.log(filename);
 
                     return (<div>
                         <img
                             key={index}
-                            src={`http://localhost:3000/uploads/${filename}`}
+                            src={`${window.location.origin}/uploads/${filename}`}
                             alt={`User Image ${index}`}
                             style={{ width: '200px', height: 'auto', maxWidth: '100%' }}
                         />
